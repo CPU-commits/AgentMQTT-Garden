@@ -1,0 +1,24 @@
+{
+  "tasks": {
+    "start": "deno run -A --watch=./ index.ts"
+  },
+  "lint": {
+	"files": {
+	  "include": ["./"]
+	},
+    "rules": {
+      "tags": ["recommended"]
+    }
+  },
+  "fmt": {
+    "files": {
+      "include": ["./"]
+    },
+    "options": {
+      "useTabs": true,
+      "indentWidth": 4,
+      "semiColons": false,
+      "singleQuote": true
+    }
+  }
+}
