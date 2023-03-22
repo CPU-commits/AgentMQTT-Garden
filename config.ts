@@ -13,9 +13,11 @@ async function registerConfig(
 ): Promise<z.infer<typeof configSchema>> {
 	const denoEnv = Deno.env.get('DENO_ENV')
 	console.log(`Deno env: ${denoEnv ?? 'dev'}`)
-	if (denoEnv && denoEnv === 'prod') {
+	if (!denoEnv || denoEnv !== 'prod') {
 		const configData = await load()
-		return configSchema.parse(configData)
+		Object.entries(configData).forEach((val) => {
+			Deno.env.set(val[0], val[1])
+		})
 	}
 	return configSchema.parse(Deno.env.toObject())
 }
