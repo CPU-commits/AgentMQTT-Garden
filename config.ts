@@ -11,8 +11,13 @@ async function registerConfig(
 		RAPIDAPI_HOST: string
 	}>,
 ): Promise<z.infer<typeof configSchema>> {
-	const configData = await load()
-	return configSchema.parse(configData)
+	const denoEnv = Deno.env.get('DENO_ENV')
+	console.log(`Deno env: ${denoEnv ?? 'dev'}`)
+	if (denoEnv && denoEnv === 'prod') {
+		const configData = await load()
+		return configSchema.parse(configData)
+	}
+	return configSchema.parse(Deno.env.toObject())
 }
 
 export default registerConfig(
