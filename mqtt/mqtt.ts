@@ -4,11 +4,8 @@ import config from '../config.ts'
 const configData = await config
 
 export default async function mqtt(): Promise<Client> {
-	const denoEnv = Deno.env?.get('DENO_ENV') ?? 'dev'
 	const client = new Client({
-		url: `mqtt${
-			denoEnv === 'prod' ? 's' : ''
-		}://${configData.MQTT_HOST}:1883`,
+		url: `${configData.MQTT_PROTOCOL}://${configData.MQTT_HOST}:1883`,
 		username: configData.MQTT_USERNAME,
 		password: configData.MQTT_PASSWORD,
 	})
@@ -16,7 +13,8 @@ export default async function mqtt(): Promise<Client> {
 	client.on('connected', () => {
 		console.log(`Success conection - Agent ${configData.MQTT_USERNAME}`)
 	})
-	await client.connect()
+	console.log('Connecting...')
+	const x = await client.connect()
 
 	return client
 }

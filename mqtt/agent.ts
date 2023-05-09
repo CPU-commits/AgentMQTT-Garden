@@ -35,7 +35,12 @@ export default class AgentMqtt {
 	}
 
 	private async connect() {
-		this.client = await mqtt()
+		try {
+			console.log('Trying to connect')
+			this.client = await mqtt()
+		} catch (err) {
+			console.error(err)
+		}
 	}
 
 	private generateFakeRH() {

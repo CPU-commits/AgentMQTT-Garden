@@ -30,5 +30,6 @@ export default registerConfig(
 		LATITUDE_LONGITUDE: z.string(),
 		RAPIDAPI_KEY: z.string(),
 		RAPIDAPI_HOST: z.string(),
+		MQTT_PROTOCOL: z.string(),
 	}),
 )
